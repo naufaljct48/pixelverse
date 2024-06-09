@@ -22,9 +22,9 @@ Start bot : [HERE](https://t.me/pixelversexyzbot?start=1007550735)
    ```shell
    git clone https://github.com/naufaljct48/pixelverse.git
    ```
-3. Go to pixelversexyzbot
+3. Go to pixelverse
    ```
-   cd pixelversexyzbot
+   cd pixelverse
    ```
 4. Install python library
    
