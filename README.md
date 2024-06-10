@@ -9,6 +9,7 @@ Special thanks to [@akasaid](https://github.com/akasakaid/pixelversexyzbot)
 - [x] Input data manually (no login require)
 - [x] Auto Upgrade Pets (Optional)
 - [x] Auto Claim Cipher/Daily Combo
+- [x] Auto Buy New Pet
 
 ## Screenshot
 **Auto Upgrade Pet**  
