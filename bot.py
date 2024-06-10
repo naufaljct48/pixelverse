@@ -55,7 +55,7 @@ class PixelTod:
         {putih}Original Source by : {hijau}t.me/AkasakaID
         {putih}Recoded by : {hijau}t.me/naufal48
         {hijau}Github : {putih}@AkasakaID | {putih}@NaufalJCT48 
-        {kuning}Need Daily Combo ID ? {biru}https://github.com/naufaljct48/pixelverse
+        {kuning}Need Daily Combo ID ? {biru}https://github.com/naufaljct48/pixelverse?tab=readme-ov-file#pet-list
         """
         if "noclear" not in sys.argv:
             os.system("cls" if os.name == "nt" else "clear")
