@@ -8,7 +8,14 @@ Special thanks to [@akasaid](https://github.com/akasakaid/pixelversexyzbot)
 - [x] Suppport Multi Account
 - [x] Input data manually (no login require)
 - [x] Auto Upgrade Pets (Optional)
-- [x] Auto Claim Cipher/Daily Combo  
+- [x] Auto Claim Cipher/Daily Combo
+
+# Screenshot
+Auto Upgrade Pet
+<img src="https://github.com/naufaljct48/pixelverse/blob/main/AutoUpgradePet.jpg">
+Daily Combo
+<img src="https://github.com/naufaljct48/pixelverse/blob/main/DailyCombo.jpg">
+
 
 # Registration
 
