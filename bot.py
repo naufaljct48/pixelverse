@@ -69,6 +69,8 @@ class PixelTod:
             self.log(f'{kuning}Please fill / input your data to initdata.txt')
             sys.exit()
 
+
+        auto_buy_pet = input("Auto Buy Pet? (y/n): ").strip().lower() == 'y'
         auto_upgrade_pet = input("Auto Upgrade Pet? (y/n): ").strip().lower() == 'y'
         daily_combo = input("Daily Combo? (y/n): ").strip().lower() == 'y'
         id_pets = []
@@ -90,15 +92,17 @@ class PixelTod:
                 self.log(f'{hijau}Login as : {putih}{first_name} {last_name}')
                 secret = self.get_secret(userid)
                 new_data = Data(data, userid, username, secret)
-                self.process_account(new_data, auto_upgrade_pet, daily_combo, id_pets)
+                self.process_account(new_data, auto_buy_pet, auto_upgrade_pet, daily_combo, id_pets)
                 print('~' * 50)
                 self.countdown(self.INTERVAL_DELAY)
             self.countdown(self.DEFAULT_COUNTDOWN)
 
-    def process_account(self, data, auto_upgrade_pet, daily_combo, id_pets):
+    def process_account(self, data, auto_buy_pet, auto_upgrade_pet, daily_combo, id_pets):
         self.get_me(data)
         self.daily_reward(data)
         self.get_mining_proccess(data)
+        if auto_buy_pet:
+            self.auto_buy_pet(data)
         if auto_upgrade_pet:
             self.auto_upgrade_pet(data)
         if daily_combo:
@@ -185,6 +189,20 @@ class PixelTod:
                 self.log(f'{kuning}Amount too small to make claim !')
         else:
             self.log(f'{merah}Empty response from mining progress API.')
+
+    def auto_buy_pet(self, data: Data):
+        url = 'https://api-clicker.pixelverse.xyz/api/pets/buy?tg-id={self.tg_id}&secret={self.secret}'
+        headers = self.prepare_headers(data)
+        res_buy_pet = self.api_call(url, data=json.dumps({}), headers=headers, method='POST')
+        if res_buy_pet.status_code == 200 or res_buy_pet.status_code == 201:
+            try:
+                buy_pet_data = res_buy_pet.json()
+                pet_name = buy_pet_data.get('pet', {}).get('name', 'Unknown')
+                self.log(f'{hijau}Successfully buy a new pet! You got {kuning}{pet_name}!')
+            except json.JSONDecodeError:
+                self.log(f'{merah}Failed to decode JSON response from buy pet API.')
+        else:
+            self.log(f'{merah}Not yet time to buy another pet or Insufficient points')
 
 
     def auto_upgrade_pet(self, data: Data):
