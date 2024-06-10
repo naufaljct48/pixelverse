@@ -10,12 +10,12 @@ Special thanks to [@akasaid](https://github.com/akasakaid/pixelversexyzbot)
 - [x] Auto Upgrade Pets (Optional)
 - [x] Auto Claim Cipher/Daily Combo
 
-# Screenshot
-Auto Upgrade Pet
-<img src="https://github.com/naufaljct48/pixelverse/blob/main/AutoUpgradePet.jpg">
-Daily Combo
-<img src="https://github.com/naufaljct48/pixelverse/blob/main/DailyCombo.jpg">
+## Screenshot
+**Auto Upgrade Pet**  
+<img src="https://github.com/naufaljct48/pixelverse/blob/main/AutoUpgradePet.jpg" width="750">
 
+**Daily Combo**  
+<img src="https://github.com/naufaljct48/pixelverse/blob/main/DailyCombo.jpg" width="750">
 
 # Registration
 
