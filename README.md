@@ -114,3 +114,7 @@ Start bot : [HERE](https://t.me/pixelversexyzbot?start=1007550735)
 | 36621a17-81f3-4d5d-b4e1-4b0cf51d4610 | <img src="https://storage.googleapis.com/pixelverse-dev.appspot.com/1717750211797_18.png" width="100" height="100"> |
 | 90a07a32-431a-4299-be59-598180ee4a8c | <img src="https://storage.googleapis.com/pixelverse-dev.appspot.com/1717749762363_6.png" width="100" height="100"> |
 | 45f2e16e-fb64-4e15-a3fa-2fb99c8d4a04 | <img src="https://storage.googleapis.com/pixelverse-dev.appspot.com/1717749762367_10.png" width="100" height="100"> |
+| 3bfab57c-a57f-48d9-8819-c93c9f531478 | <img src="https://storage.googleapis.com/pixelverse-dev.appspot.com/1717750211796_17.png" width="100" height="100"> |
+| 341195b4-f7d8-4b9c-a8f1-448318f32e8e | <img src="https://storage.googleapis.com/pixelverse-dev.appspot.com/1717749670578_2.png" width="100" height="100"> |
+| bc3f938f-8f4c-467b-a57d-2b40cd500f4b | <img src="https://storage.googleapis.com/pixelverse-dev.appspot.com/1717749670579_3.png" width="100" height="100"> |
+| f82a3b59-913d-4c57-8ffd-9ac954105e2d | <img src="https://storage.googleapis.com/pixelverse-dev.appspot.com/1717749762364_7.png" width="100" height="100"> |
