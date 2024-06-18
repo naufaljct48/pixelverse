@@ -28,8 +28,8 @@ class Data:
 
 class PixelTod:
     def __init__(self):
-        self.DEFAULT_COUNTDOWN = 10 * 60  # 5 minutes
-        self.INTERVAL_DELAY = 3  # seconds
+        self.DEFAULT_COUNTDOWN = 180 * 60  # 5 minutes
+        self.INTERVAL_DELAY = 0  # seconds
         self.base_headers = {
             "Accept": "application/json, text/plain, */*",
             "Accept-Language": "en,en-US;q=0.9",
@@ -55,7 +55,7 @@ class PixelTod:
         {putih}Original Source by : {hijau}t.me/AkasakaID
         {putih}Recoded by : {hijau}t.me/naufal48
         {hijau}Github : {putih}@AkasakaID | {putih}@NaufalJCT48 
-        {kuning}Need Daily Combo ID ? {biru}https://github.com/naufaljct48/pixelverse?tab=readme-ov-file#pet-list
+        {kuning}Need Daily Combo ID ? {biru}https://github.com/naufaljct48/pixelverse
         """
         if "noclear" not in sys.argv:
             os.system("cls" if os.name == "nt" else "clear")
@@ -140,18 +140,47 @@ class PixelTod:
         url = 'https://api-clicker.pixelverse.xyz/api/users'
         headers = self.prepare_headers(data)
         res = self.api_call(url, None, headers)
-        balance = res.json().get('clicksCount', 'N/A')
-        self.log(f'{hijau}Total Balance : {putih}{balance}')
+        
+        if not res.text:
+            self.log(f'{merah}Empty response from get_me API.')
+            return
+        
+        try:
+            response_json = res.json()
+            balance = response_json.get('clicksCount', 'N/A')
+            self.log(f'{hijau}Total Balance : {putih}{balance}')
+        except json.JSONDecodeError:
+            self.log(f'{merah}Failed to decode JSON response from get_me API. Response: {res.text}')
 
     def daily_reward(self, data: Data):
         url = 'https://api-clicker.pixelverse.xyz/api/daily-rewards'
         headers = self.prepare_headers(data)
         res = self.api_call(url, None, headers)
-        if res.json().get('todaysRewardAvailable'):
+        
+        if not res.text:
+            self.log(f'{merah}Empty response from daily reward API.')
+            return
+
+        try:
+            response_json = res.json()
+        except json.JSONDecodeError:
+            self.log(f'{merah}Failed to decode JSON response from daily reward API. Response: {res.text}')
+            return
+        
+        if response_json.get('todaysRewardAvailable'):
             url_claim = 'https://api-clicker.pixelverse.xyz/api/daily-rewards/claim'
             res = self.api_call(url_claim, '', headers, method='POST')
-            amount = res.json().get('amount', 'N/A')
-            self.log(f'{hijau}Success claim today reward : {putih}{amount}')
+            
+            if not res.text:
+                self.log(f'{merah}Empty response from daily reward claim API.')
+                return
+            
+            try:
+                claim_response = res.json()
+                amount = claim_response.get('amount', 'N/A')
+                self.log(f'{hijau}Success claim today reward : {putih}{amount}')
+            except json.JSONDecodeError:
+                self.log(f'{merah}Failed to decode JSON response from daily reward claim API. Response: {res.text}')
         else:
             self.log(f'{kuning}Already claim today reward !')
 
@@ -160,35 +189,36 @@ class PixelTod:
         headers = self.prepare_headers(data)
         res = self.api_call(url, None, headers)
         
-        if res.text:
-            try:
-                response_json = res.json()
-            except json.JSONDecodeError:
-                self.log(f'{merah}Failed to decode JSON response.')
+        if not res.text:
+            self.log(f'{merah}Empty response from mining progress API.')
+            return
+
+        try:
+            response_json = res.json()
+        except json.JSONDecodeError:
+            self.log(f'{merah}Failed to decode JSON response from mining progress API. Response: {res.text}')
+            return
+        
+        available = response_json.get('currentlyAvailable', 0)
+        min_claim = response_json.get('minAmountForClaim', float('inf'))
+        self.log(f'{putih}Amount available : {hijau}{available}')
+        
+        if available > min_claim:
+            url_claim = 'https://api-clicker.pixelverse.xyz/api/mining/claim'
+            res = self.api_call(url_claim, '', headers, method='POST')
+            
+            if not res.text:
+                self.log(f'{merah}Empty response from claim API.')
                 return
             
-            available = response_json.get('currentlyAvailable', 0)
-            min_claim = response_json.get('minAmountForClaim', float('inf'))
-            self.log(f'{putih}Amount available : {hijau}{available}')
-            
-            if available > min_claim:
-                url_claim = 'https://api-clicker.pixelverse.xyz/api/mining/claim'
-                res = self.api_call(url_claim, '', headers, method='POST')
-                if res.text:
-                    try:
-                        claim_response = res.json()
-                    except json.JSONDecodeError:
-                        self.log(f'{merah}Failed to decode JSON response.')
-                        return
-                    
-                    claim_amount = claim_response.get('claimedAmount', 'N/A')
-                    self.log(f'{hijau}Claim amount : {putih}{claim_amount}')
-                else:
-                    self.log(f'{merah}Empty response from claim API.')
-            else:
-                self.log(f'{kuning}Amount too small to make claim !')
+            try:
+                claim_response = res.json()
+                claim_amount = claim_response.get('claimedAmount', 'N/A')
+                self.log(f'{hijau}Claim amount : {putih}{claim_amount}')
+            except json.JSONDecodeError:
+                self.log(f'{merah}Failed to decode JSON response from claim API. Response: {res.text}')
         else:
-            self.log(f'{merah}Empty response from mining progress API.')
+            self.log(f'{kuning}Amount too small to make claim !')
 
     def auto_buy_pet(self, data: Data):
         url = 'https://api-clicker.pixelverse.xyz/api/pets/buy?tg-id={self.tg_id}&secret={self.secret}'
